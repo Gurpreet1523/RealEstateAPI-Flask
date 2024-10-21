@@ -1,0 +1,691 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Real Estate API",
+        "description": "API for managing real estate listings"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "summary": "User Registration",
+                "description": "Create a new user",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "User object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User created",
+                        "schema": {
+                            "$ref": "#/definitions/UserResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "User Login",
+                "description": "Authenticate a user and return a JWT token",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "User login credentials",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "schema": {
+                            "$ref": "#/definitions/LoginResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/properties": {
+          "get": {
+            "summary": "List all properties",
+            "operationId": "listProperties",
+            "responses": {
+              "200": {
+                "description": "A list of Properties",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Property"
+                  }
+                }
+              }
+            }
+          },
+          "post": {
+            "summary": "Add Property",
+            "description": "Add new property for listing",
+            "parameters": [
+              {
+                "name": "body",
+                "in": "body",
+                "description": "User object",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/Property"
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Property created"
+              }
+            }
+          }
+        },
+      "/properties/{property_id}": {
+        "get": {
+        "summary": "Get Property by ID",
+        "operationId": "GetProperty",
+        "parameters": [
+          {
+            "name": "property_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Property to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property found",
+            "schema": {
+              "$ref": "#/definitions/Property"
+            }
+          },
+          "404": {
+            "description": "Property not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Property",
+        "operationId": "UpdateProperty",
+        "parameters": [
+          {
+            "name": "property_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Property to update"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Property"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property updated"
+          }
+        }
+      },
+
+        "delete": {
+                "summary": "Delete Property",
+                "description": "Delete property from listing",
+                "parameters": [
+                   {
+                    "name": "property_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "ID of the Property to update"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Property Deleted"
+                    }
+                }
+            }
+        },
+      "/agents": {
+      "get": {
+        "summary": "List all agents",
+        "operationId": "listAgents",
+        "responses": {
+          "200": {
+            "description": "A list of agents",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Agent" }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new agent",
+        "operationId": "createAgent",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Agent" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Agent created"
+          }
+        }
+      }
+    },
+      "/agents/{agent_id}": {
+        "get": {
+        "summary": "Get Agent by ID",
+        "operationId": "GetAgent",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Agent to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent found",
+            "schema": {
+              "$ref": "#/definitions/Agent"
+            }
+          },
+          "404": {
+            "description": "Agent not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Agent",
+        "operationId": "UpdateAgent",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Agent to update"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Agent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent updated"
+          }
+        }
+      },
+
+        "delete": {
+                "summary": "Delete Agent",
+                "description": "Delete Agent from listing",
+                "parameters": [
+                   {
+                    "name": "agent_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "ID of the Agent to delete"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Agent Deleted"
+                    }
+                }
+            }
+        },
+    "/favorites": {
+      "get": {
+        "summary": "List all Favorites",
+        "operationId": "listFavorites",
+        "responses": {
+          "200": {
+            "description": "A list of Favorites",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Favorite" }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new favorite",
+        "operationId": "createFavorite",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Favorite"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Favorite created"
+          }
+        }
+      }
+    },
+      "/favorites/{favorite_id}": {
+        "delete": {
+                "summary": "Delete favorite",
+                "description": "Delete favorite property from listing",
+                "parameters": [
+                   {
+                    "name": "favorite_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "ID of the favorite to delete"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "favorite property Deleted"
+                    }
+                }
+            }
+        },
+    "/inquiries": {
+      "get": {
+        "summary": "List all inquiries",
+        "operationId": "listInquiries",
+        "responses": {
+          "200": {
+            "description": "A list of inquiries",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Inquiry" }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new inquiry",
+        "operationId": "createInquiry",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Inquiry" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Inquiry created"
+          }
+        }
+      }
+    },
+      "/inquiries/{inquiry_id}": {
+        "get": {
+        "summary": "Get Inquiry by ID",
+        "operationId": "GetInquiry",
+        "parameters": [
+          {
+            "name": "inquiry_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Inquiry to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inquiry found",
+            "schema": {
+              "$ref": "#/definitions/Inquiry"
+            }
+          },
+          "404": {
+            "description": "Inquiry not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Inquiry",
+        "operationId": "UpdateInquiry",
+        "parameters": [
+          {
+            "name": "inquiry_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Inquiry to update"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Inquiry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inquiry updated"
+          }
+        }
+      },
+
+        "delete": {
+                "summary": "Delete Inquiry",
+                "description": "Delete Inquiry",
+                "parameters": [
+                   {
+                    "name": "inquiry_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "ID of the Inquiry to delete"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inquiry Deleted"
+                    }
+                }
+            }
+        },
+    "/open_houses": {
+        "get": {
+            "summary": "List all open houses",
+            "operationId": "listOpenHouses",
+            "responses": {
+                "200": {
+                    "description": "A list of open houses",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/OpenHouse"
+                        }
+                    }
+                }
+            }
+        },
+        "post": {
+            "summary": "Create a new open house",
+            "operationId": "createOpenHouse",
+            "parameters": [
+                {
+                    "name": "body",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/OpenHouse"
+                    }
+                }
+            ],
+            "responses": {
+                "201": {
+                    "description": "Open house created"
+                }
+            }
+        }
+    },
+   "/open_houses/{open_house_id}": {
+        "get": {
+        "summary": "Get Open House by ID",
+        "operationId": "GetOpenHouse",
+        "parameters": [
+          {
+            "name": "open_house_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the Open House to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Open House found",
+            "schema": {
+              "$ref": "#/definitions/OpenHouse"
+            }
+          },
+          "404": {
+            "description": "Open House not found"
+          }
+        }
+      },
+
+        "delete": {
+                "summary": "Delete Open House",
+                "description": "DeleteOpenHouse",
+                "parameters": [
+                   {
+                    "name": "open_house_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "ID of the Open House to delete"
+                  }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Open House Deleted"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": ["Buyer", "Seller", "Agent"]
+                }
+            }
+        },
+        "UserResponse": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "Login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "LoginResponse": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "Property": {
+            "type": "object",
+            "properties": {
+               "property_id": {
+                   "type": "integer"
+               },
+               "user_id": {
+                   "type": "integer"
+               },
+                    "address": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "province": {
+                        "type": "string"
+                    },
+                    "postal_code": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number", "format": "float"
+                    },
+                    "property_type": {
+                        "type": "string", "enum": [
+                            "House", "Condo", "Townhouse"
+                        ]},
+                    "bedrooms": {
+                        "type": "integer"
+                    },
+                    "bathrooms": {
+                        "type": "integer"
+                    },
+                    "square_feet": {
+                        "type": "integer"
+                    },
+                    "listing_date": {
+                        "type": "string", "format": "date"
+                    },
+                    "status": {
+                        "type": "string", "enum": [
+                            "Active", "Sold", "Pending"
+                        ]},
+                    "description": {
+                        "type": "string"
+                    },
+                    "images": {
+                        "type": "string"
+                    }
+
+            }
+        },
+        "PropertyResponse": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "integer"
+                },
+                "property_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "Agent": {
+      "type": "object",
+      "properties": {
+        "agent_id": { "type": "integer" },
+        "user_id": { "type": "integer" },
+        "agency_name": { "type": "string" },
+        "phone_number": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["user_id", "agency_name", "phone_number", "email"]
+    },
+    "Favorite": {
+      "type": "object",
+      "properties": {
+        "favorite_id": { "type": "integer" },
+        "user_id": { "type": "integer" },
+        "property_id": { "type": "integer" }
+      },
+      "required": ["user_id", "property_id"]
+    },
+    "Inquiry": {
+      "type": "object",
+      "properties": {
+        "inquiry_id": { "type": "integer" },
+        "property_id": { "type": "integer" },
+        "user_id": { "type": "integer" },
+        "message": { "type": "string" },
+        "inquiry_date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["property_id", "user_id", "message"]
+    },
+    "OpenHouse": {
+      "type": "object",
+      "properties": {
+        "open_house_id": { "type": "integer" },
+        "property_id": { "type": "integer" },
+        "start_time": { "type": "string", "format": "date-time" },
+        "end_time": { "type": "string", "format": "date-time" },
+        "date": { "type": "string", "format": "date" }
+      },
+      "required": ["property_id", "start_time", "end_time", "date"]
+    }
+  }
+}
+
+
+
