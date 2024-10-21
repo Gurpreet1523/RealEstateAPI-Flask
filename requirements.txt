@@ -1,0 +1,11 @@
+Flask~=3.0.3
+Flask-SQLAlchemy
+Flask-JWT-Extended
+Flask_Swagger_UI
+Flask_Bcrypt
+pyodbc
+flasgger~=0.9.7.1
+bcrypt~=4.2.0
+Werkzeug~=3.0.4
+DateTime~=5.5
+SQLAlchemy~=2.0.35
